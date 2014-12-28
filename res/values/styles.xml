@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="@style/MaterialTheme">
+        <item name="android:windowContentOverlay">@null</item>
+
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@android:color/transparent</item>
+
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+        <item name="colorAccent">#fff</item>
+        <item name="android:windowBackground">@color/action_bar_color</item>
+
+        <!-- Actionbar overlay -->
+        <item name="android:windowActionBarOverlay">true</item>
+
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
+</resources>

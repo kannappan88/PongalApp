@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">பொங்கல்</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <!--
+    <string name="quotes">Quotes</string>
+    <string name="greetings">Greetings</string>
+    <string name="jallikattu">Jallikattu</string>
+    <string name="pongal">Pongal</string>
+    <string name="title_quotes">Quotes</string>
+    <string name="title_greetings">Greetings</string>
+    <string name="title_jallikattu">Jallikattu</string>
+    <string name="title_pongal">Pongal</string>
+    -->
+
+    <string name="quotes">Quotes</string>
+    <string name="greetings">வாழ்த்து அட்டை</string>
+    <string name="jallikattu">ஜல்லிக்கட்டு</string>
+    <string name="pongal">பொங்கல் </string>
+    <string name="title_quotes">Quotes</string>
+    <string name="title_greetings">Greetings</string>
+    <string name="title_jallikattu">ஜல்லிக்கட்டு </string>
+    <string name="title_pongal">பொங்கல்</string>
+    <string name="pongal_desc">தமிழர் பண்பாட்டின் அடையாளம் பொங்கல் திருநாள்!</string>
+    <string name="jallikattu_desc">தமிழனின் வீர விளையாட்டு!</string>
+
+</resources>

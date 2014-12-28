@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pongal"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
+    <application
+        android:name="com.pongal.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.pongal.activity.SplashActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.pongal.activity.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.pongal.activity.PongalActivity"
+            android:label="@string/title_pongal"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialTheme.Actionbar" />
+        <activity
+            android:name="com.pongal.activity.JallikattuActivity"
+            android:label="@string/title_jallikattu"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialTheme.Actionbar" />
+        <activity
+            android:name="com.pongal.activity.GreetingsActivity"
+            android:label="@string/title_greetings"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialTheme.Actionbar" />
+        <activity
+            android:name="com.pongal.activity.QuotesActivity"
+            android:label="@string/title_quotes"
+            android:screenOrientation="portrait"
+            android:theme="@style/MaterialTheme.Actionbar" />
+    </application>
+
+</manifest>

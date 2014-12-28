@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="layout_padding">16dp</dimen>
+    <dimen name="grid_margin">0dp</dimen>
+    <dimen name="grid_padding">8dp</dimen>
+    <dimen name="space_padding">8dp</dimen>
+    <dimen name="min_tile_height">150dp</dimen>
+    <dimen name="tile_padding">1dp</dimen>
+     <dimen name="home_imagery_height">250dp</dimen>
+    <dimen name="min_imagery_height">175dp</dimen>
+
+    <integer name="num_columns">2</integer>
+    
+    <dimen name="list_divider_height">1dp</dimen>
+
+</resources>
