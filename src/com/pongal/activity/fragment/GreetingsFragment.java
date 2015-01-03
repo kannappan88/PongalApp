@@ -1,17 +1,28 @@
 package com.pongal.activity.fragment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,6 +42,8 @@ import com.pongal.R;
  */
 public class GreetingsFragment extends BaseFragment {
 	private Activity mActivity;
+	private ImageView mImageView;
+	private int mPosition;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -41,6 +54,7 @@ public class GreetingsFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -53,6 +67,21 @@ public class GreetingsFragment extends BaseFragment {
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		// for (int i = 0; i < mImageIds.length; i++) {
+		//
+		// Bitmap icon = BitmapFactory.decodeResource(getResources(),
+		// mImageIds[i]);
+		//
+		// try {
+		// saveImageToExternalStorage(icon, "Pongal" + i + ".jpg");
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// }
+
+		//
 		initializeView(view);
 	}
 
@@ -66,17 +95,16 @@ public class GreetingsFragment extends BaseFragment {
 		// Note that Gallery view is deprecated in Android 4.1---
 		Gallery gallery = (Gallery) view.findViewById(R.id.gallery);
 		// display the images selected
-		final ImageView imageView = (ImageView) view
-				.findViewById(R.id.image_view);
-		
+		mImageView = (ImageView) view.findViewById(R.id.image_view);
+
 		gallery.setSelected(true);
 		gallery.setSpacing(2);
 		gallery.setAdapter(new GalleryImageAdapter(mActivity));
 		gallery.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
-
-				imageView.setImageResource(mImageIds[position]);
+				mPosition = position;
+				mImageView.setImageResource(mImageIds[position]);
 			}
 		});
 		gallery.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -84,13 +112,13 @@ public class GreetingsFragment extends BaseFragment {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
+				mPosition = position;
 				Bitmap icon = BitmapFactory.decodeResource(getResources(),
 						mImageIds[position]);
 				Bitmap scaledBitmap = scaleBitmap(icon);
-				imageView.setImageBitmap(scaledBitmap);
+				mImageView.setImageBitmap(scaledBitmap);
 
-				//
-				//setWallpaper(scaledBitmap);
+				// setWallpaper(scaledBitmap);
 
 			}
 
@@ -104,7 +132,16 @@ public class GreetingsFragment extends BaseFragment {
 	}
 
 	// the images to display
-	Integer[] mImageIds = { R.drawable.a, R.drawable.b, R.drawable.c,
+	Integer[] mImageIds = { R.drawable.as, R.drawable.ab, R.drawable.ac,
+			R.drawable.ad, R.drawable.ic_home_bg, R.drawable.ic_jallikattu_bg,
+
+			R.drawable.ae, R.drawable.af, R.drawable.ag, R.drawable.ah,
+			R.drawable.ai, R.drawable.aj, R.drawable.ak,
+
+			R.drawable.al, R.drawable.am, R.drawable.an, R.drawable.ao,
+			R.drawable.ap, R.drawable.aq, R.drawable.ar,
+
+			R.drawable.at, R.drawable.a, R.drawable.b, R.drawable.c,
 			R.drawable.d, R.drawable.e,
 
 			R.drawable.f, R.drawable.g, R.drawable.h, R.drawable.i,
@@ -117,9 +154,7 @@ public class GreetingsFragment extends BaseFragment {
 			R.drawable.u,
 
 			R.drawable.v, R.drawable.w, R.drawable.y, R.drawable.z,
-			R.drawable.aa, R.drawable.ab, R.drawable.ac, R.drawable.ad,
-
-			R.drawable.ae, R.drawable.af, R.drawable.ag
+			R.drawable.aa
 
 	};
 
@@ -148,7 +183,7 @@ public class GreetingsFragment extends BaseFragment {
 			ImageView i = new ImageView(mContext);
 
 			i.setImageResource(mImageIds[index]);
-			i.setLayoutParams(new Gallery.LayoutParams(400, 400));
+			i.setLayoutParams(new Gallery.LayoutParams(250, 250));
 
 			i.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -225,12 +260,118 @@ public class GreetingsFragment extends BaseFragment {
 		WallpaperManager myWallpaperManager = WallpaperManager
 				.getInstance(mActivity);
 		try {
-			 Bitmap resized = Bitmap.createScaledBitmap(scaledBitmap,
-			 getDeviceScreenWidth(mActivity) - 100,
-			 getDeviceScreenHeight(mActivity), true);
+			Bitmap resized = Bitmap.createScaledBitmap(scaledBitmap,
+					getDeviceScreenWidth(mActivity) - 100,
+					getDeviceScreenHeight(mActivity), true);
 			myWallpaperManager.setBitmap(resized);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		mActivity.getMenuInflater().inflate(R.menu.home, menu);
+
+		MenuItem menuItem = menu.findItem(R.id.action_share);
+		MenuItemCompat.setShowAsAction(menuItem,
+				MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_share:
+			handleShaeIntent();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void handleShaeIntent() {
+		// TODO Auto-generated method stub
+		getDefaultIntent();
+	}
+
+	/**
+	 * Defines a default (dummy) share intent to initialize the action provider.
+	 * However, as soon as the actual content to be used in the intent is known
+	 * or changes, you must update the share intent by again calling
+	 * mShareActionProvider.setShareIntent()
+	 */
+	private void getDefaultIntent() {
+
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+				mImageIds[mPosition]);
+		Intent share = new Intent(Intent.ACTION_SEND);
+		share.setType("image/jpeg");
+
+		try {
+			saveImageToExternalStorage(bitmap, "Pongal" + mPosition + ".jpg");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		File externalFileStorage = Environment.getExternalStorageDirectory();
+		File directory = new File(externalFileStorage.getAbsolutePath()
+				+ "/Pongal/" + "Pongal" + mPosition + ".jpg");
+
+		Uri uri = Uri.fromFile(directory);
+		share.putExtra(Intent.EXTRA_STREAM, uri);
+
+		startActivity(Intent.createChooser(share, "Share Image"));
+	}
+
+	public static boolean checkSDcardAvailable() {
+		boolean isSdcardAvailable = false;
+		if (android.os.Environment.getExternalStorageState().equals(
+				android.os.Environment.MEDIA_MOUNTED)) {
+			isSdcardAvailable = true;
+		}
+		return isSdcardAvailable;
+	}
+
+	public static boolean saveImageToExternalStorage(Bitmap bitmap,
+			String fileName) throws IOException {
+		boolean isSuccess = false;
+		if (checkSDcardAvailable()) {
+			FileOutputStream fileOutputStream = null;
+			try {
+				File externalFileStorage = Environment
+						.getExternalStorageDirectory();
+				File directory = new File(externalFileStorage.getAbsolutePath()
+						+ "/Pongal");
+				directory.mkdirs();
+				File imageFile = new File(directory, fileName);
+				if (imageFile.exists()) {
+					imageFile.delete();
+					imageFile.createNewFile();
+				}
+
+				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+						byteArrayOutputStream);
+				byte[] byteArray = byteArrayOutputStream.toByteArray();
+				fileOutputStream = new FileOutputStream(imageFile);
+				if (fileOutputStream != null) {
+					fileOutputStream.write(byteArray);
+					fileOutputStream.flush();
+					fileOutputStream.close();
+				}
+				isSuccess = true;
+			} catch (FileNotFoundException e) {
+				if (com.pongal.util.Constants.DEBUG) {
+					e.printStackTrace();
+				}
+				isSuccess = false;
+			}
+		}
+		return isSuccess;
+	}
+
 }

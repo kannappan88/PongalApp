@@ -18,7 +18,7 @@ public class JallikattuActivity extends BaseActivity {
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		//supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+		supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_base_layout);
 		if (findViewById(R.id.fragment_container) != null) {
@@ -34,6 +34,9 @@ public class JallikattuActivity extends BaseActivity {
 		}
 		
 		isShowActionBarHomeButton(true);
+		
+//		getSupportActionBar().setHideOnContentScrollEnabled(true);
+//		getSupportActionBar().setHideOffset(40);
 	}
 
 	/**

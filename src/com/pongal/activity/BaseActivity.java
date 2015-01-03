@@ -1,16 +1,18 @@
 package com.pongal.activity;
 
-import com.pongal.R;
-import com.pongal.R.layout;
-
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
+import com.pongal.R;
 
 /**
  * 
@@ -101,4 +103,6 @@ public class BaseActivity extends ActionBarActivity {
 	protected void onPause() {
 		super.onPause();
 	}
+
+
 }

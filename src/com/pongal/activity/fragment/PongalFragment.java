@@ -5,8 +5,14 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +31,7 @@ public class PongalFragment extends BaseFragment {
 	private Activity mActivity;
 	private ImageView imageryImageView;
 	private TextView descriptionTextView;
+	private ScaleGestureDetector scaleGestureDetector;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -60,19 +67,30 @@ public class PongalFragment extends BaseFragment {
 	 */
 	private void initializeView(View view) {
 		imageryImageView = (ImageView) view.findViewById(R.id.brand_image_view);
-		imageryImageView.setImageResource(R.drawable.z);
-		
+		imageryImageView.setImageResource(R.drawable.as);
+
 		TextView titleTextview = (TextView) view
 				.findViewById(R.id.title_textview);
-		
+
 		descriptionTextView = (TextView) view
 				.findViewById(R.id.description_textview);
 		Typeface font1 = Typeface.createFromAsset(mActivity.getAssets(),
 				"vijayab.ttf");
 		descriptionTextView.setTypeface(font1);
+		descriptionTextView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				scaleGestureDetector.onTouchEvent(event);
+				return true;
+			}
+		});
 		//
 		titleTextview.setTypeface(font1);
 		titleTextview.setText(getResources().getString(R.string.pongal_desc));
+
+		scaleGestureDetector = new ScaleGestureDetector(mActivity,
+				new OnSimpleScaleGestureListener());
 	}
 
 	class ReadAssetFileTask extends AsyncTask<Void, Void, String> {
@@ -98,5 +116,36 @@ public class PongalFragment extends BaseFragment {
 	 */
 	private void handleResponseData(String response) {
 		descriptionTextView.setText(response);
+	}
+
+	private class OnSimpleScaleGestureListener extends
+			SimpleOnScaleGestureListener {
+
+		@Override
+		public boolean onScale(ScaleGestureDetector detector) {
+			// TODO Auto-generated method stub
+			float size = descriptionTextView.getTextSize();
+			if (Constants.DEBUG) {
+				Log.d("TextSizeStart", String.valueOf(size));
+			}
+
+			float factor = detector.getScaleFactor();
+			if (Constants.DEBUG) {
+				Log.d("Factor", String.valueOf(factor));
+			}
+
+			float product = size * factor;
+			if (Constants.DEBUG) {
+				Log.d("TextSize", String.valueOf(product));
+			}
+			descriptionTextView
+					.setTextSize(TypedValue.COMPLEX_UNIT_PX, product);
+
+			size = descriptionTextView.getTextSize();
+			if (Constants.DEBUG) {
+				Log.d("TextSizeEnd", String.valueOf(size));
+			}
+			return true;
+		}
 	}
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.Window;
 
 import com.pongal.R;
@@ -47,4 +48,5 @@ public class PongalActivity extends BaseActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }

@@ -3,10 +3,11 @@ package com.pongal.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
 
 import com.pongal.R;
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle arg0) {
